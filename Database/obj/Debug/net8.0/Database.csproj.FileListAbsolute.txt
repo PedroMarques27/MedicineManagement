@@ -1,0 +1,13 @@
+C:\Users\E1493\source\repos\MedicineManagement\Database\bin\Debug\net8.0\Database.deps.json
+C:\Users\E1493\source\repos\MedicineManagement\Database\bin\Debug\net8.0\Database.dll
+C:\Users\E1493\source\repos\MedicineManagement\Database\bin\Debug\net8.0\Database.pdb
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.csproj.AssemblyReference.cache
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.AssemblyInfoInputs.cache
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.AssemblyInfo.cs
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.csproj.CoreCompileInputs.cache
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.sourcelink.json
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.dll
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\refint\Database.dll
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\Database.pdb
+C:\Users\E1493\source\repos\MedicineManagement\Database\obj\Debug\net8.0\ref\Database.dll
