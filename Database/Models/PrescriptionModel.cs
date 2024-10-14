@@ -18,7 +18,6 @@ namespace Database.Models
         public UserModel User { get; set; }
 
 
-        // Navigation property: A prescription can have many medicines
-        public List<MedicineModel> MedicineList { get; set; } = new List<MedicineModel>();
+        public ICollection<MedicineModel> MedicineList { get; set; } = new List<MedicineModel>();
     }
 }

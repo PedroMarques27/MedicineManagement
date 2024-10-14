@@ -25,7 +25,7 @@ namespace Database.Repositories
      
         public async Task<MedicineModel?> GetMedicineByNameAsync(string name)
         {
-            return await _context.Medicines.FirstOrDefaultAsync(c => string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase));
+            return await _context.Medicines.FirstOrDefaultAsync(c => string.Equals(c.Name, name));
         }
 
         public async Task AddMedicineAsync(MedicineModel medicine)

@@ -30,7 +30,7 @@ namespace Database.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid?>("PrescriptionId")
+                    b.Property<Guid?>("PrescriptionModelId")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("Quantity")
@@ -38,7 +38,7 @@ namespace Database.Migrations
 
                     b.HasKey("Name");
 
-                    b.HasIndex("PrescriptionId");
+                    b.HasIndex("PrescriptionModelId");
 
                     b.ToTable("Medicines");
                 });
@@ -79,12 +79,9 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Models.MedicineModel", b =>
                 {
-                    b.HasOne("Database.Models.PrescriptionModel", "Prescription")
+                    b.HasOne("Database.Models.PrescriptionModel", null)
                         .WithMany("MedicineList")
-                        .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.Navigation("Prescription");
+                        .HasForeignKey("PrescriptionModelId");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>

@@ -17,7 +17,5 @@ namespace Database.Models
         public DateTime CreationDate { get; set; }
 
 
-        public Guid? PrescriptionId { get; set; }
-        public PrescriptionModel Prescription { get; set; }
     }
 }

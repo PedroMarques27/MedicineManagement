@@ -31,10 +31,7 @@ namespace Database
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<PrescriptionModel>()
-                .HasMany(p => p.MedicineList)
-                .WithOne(m => m.Prescription)
-                .HasForeignKey(m => m.PrescriptionId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .HasMany(p => p.MedicineList);
 
 
         }

@@ -30,7 +30,7 @@ namespace Database.Repositories
             return await _context.Users
                 .Include(u=> u.PrescriptionList)
                 .ThenInclude(p => p.MedicineList)
-                .FirstOrDefaultAsync(c => string.Equals(c.Email, Email, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefaultAsync(c => string.Equals(c.Email, Email));
         }
 
         public async Task AddUserAsync(UserModel User)
