@@ -10,7 +10,6 @@ namespace Database.Models
     public class MedicineModel
     {
         [Key]
-        public int Id { get; set; }
         public string Name { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Value must be a positive number.")]

@@ -1,4 +1,5 @@
 using Database;
+using Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Configuration;
 
@@ -15,7 +16,9 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
         )
     );
 
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
+builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
 
 var app = builder.Build();
 
@@ -30,8 +33,3 @@ app.UseHttpsRedirection();
 
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
