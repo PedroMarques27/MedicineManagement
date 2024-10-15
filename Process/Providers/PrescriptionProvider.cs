@@ -120,19 +120,13 @@ namespace Process.Providers
             {
                 var prescription = _prescriptionRepository.GetPrescriptionById(Id);
                 if (prescription == null) return StatusResponseDTO.NotFoundError();
-                var updatedPrescription = new PrescriptionModel
-                {
-                    Id = Id,
-                    CreationDate = prescription.CreationDate,
-                    UserEmail = prescription.UserEmail,
-                    MedicineList = new List<MedicineModel>(),
-                };
+                prescription.MedicineList.Clear();
                 foreach (var medicine in medicines)
                 {
                     var medicineModel = await _medicineRepository.GetMedicineByNameAsync(medicine);
                     if (medicineModel != null) prescription.MedicineList.Add(medicineModel);
                 }
-                await _prescriptionRepository.AddPrescriptionAsync(prescription);
+                await _prescriptionRepository.UpdatePrescriptionAsync(prescription);
                 return StatusResponseDTO.Ok(null);
 
             }
