@@ -9,11 +9,11 @@ namespace Database.Models
 {
     public class UserModel
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Key]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
-        public List<PrescriptionModel> PrescriptionList { get; set; }
+        public required List<PrescriptionModel> PrescriptionList { get; set; }
     }
 }
