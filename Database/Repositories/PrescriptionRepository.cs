@@ -46,7 +46,11 @@ namespace Database.Repositories
 
         public async Task DeletePrescriptionByIdAsync(Guid id)
         {
-            var Prescription = new PrescriptionModel { Id = id };
+            var Prescription = GetPrescriptionById(id);
+            if (Prescription == null)
+            {
+                return;
+            }
             _context.Prescriptions.Remove(Prescription);
             await _context.SaveChangesAsync();
         }

@@ -125,7 +125,7 @@ namespace Process.Providers
                     Id = Id,
                     CreationDate = prescription.CreationDate,
                     UserEmail = prescription.UserEmail,
-                    MedicineList = new List<MedicineModel>()
+                    MedicineList = new List<MedicineModel>(),
                 };
                 foreach (var medicine in medicines)
                 {

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Wn4K/xX6epM=",
+  "dgSpecHash": "W7O91Risoco=",
   "success": true,
   "projectFilePath": "C:\\Users\\E1493\\source\\repos\\MedicineManagement\\Process\\Process.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\E1493\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\E1493\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
+    "C:\\Users\\E1493\\.nuget\\packages\\fluentvalidation\\11.10.0\\fluentvalidation.11.10.0.nupkg.sha512",
     "C:\\Users\\E1493\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\E1493\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\E1493\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

@@ -241,3 +241,4 @@ C:\Users\E1493\source\repos\MedicineManagement\Process\bin\Debug\net8.0\runtimes
 C:\Users\E1493\source\repos\MedicineManagement\Process\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 C:\Users\E1493\source\repos\MedicineManagement\Process\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\E1493\source\repos\MedicineManagement\Process\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\E1493\source\repos\MedicineManagement\Process\bin\Debug\net8.0\FluentValidation.dll

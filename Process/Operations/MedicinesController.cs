@@ -33,6 +33,7 @@ namespace Process.Operations
         [HttpGet("{name}")]
         public async Task<IActionResult> GetMedicineByName(string name)
         {
+
             var result = await _medicineProvider.GetByNameAsync(name);
             if (result.Success)
             {
@@ -45,10 +46,6 @@ namespace Process.Operations
         [HttpPost]
         public async Task<IActionResult> AddMedicine([FromBody] Medicine medicine)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             var result = await _medicineProvider.AddMedicine(medicine);
             if (result.Success)
@@ -62,10 +59,6 @@ namespace Process.Operations
         [HttpPut("{name}")]
         public async Task<IActionResult> UpdateMedicine(string name, [FromBody] Medicine medicine)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             var result = await _medicineProvider.UpdateMedicine(name, medicine);
             if (result.Success)

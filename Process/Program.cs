@@ -1,9 +1,11 @@
 using Database;
 using Database.Repositories;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Process.DTOs.Entities;
 using Process.Profiles;
 using Process.Providers;
-using System.Configuration;
+using Process.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +31,11 @@ builder.Services.AddScoped<IMedicineProvider, MedicineProvider>();
 builder.Services.AddScoped<IPrescriptionProvider, PrescriptionProvider>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IValidator<Medicine>, MedicineValidator>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

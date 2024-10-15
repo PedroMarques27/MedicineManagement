@@ -9,7 +9,7 @@ namespace Process.Providers
         StatusResponseDTO GetUsers();
         Task<StatusResponseDTO> GetUserByEmail(string Email);
         Task<StatusResponseDTO> AddUser(User user);
-        Task<StatusResponseDTO> UpdateUser(string Email, User user);
+        Task<StatusResponseDTO> UpdateUser(string Email, UserInputDto user);
         Task<StatusResponseDTO> DeleteUser(string Email);
 
 

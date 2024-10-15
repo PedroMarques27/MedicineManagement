@@ -5,8 +5,8 @@ namespace Process.DTOs.Entities
 {
     public class User
     {
-        public string Name { get; set; }
-        public string Email { get; set; }
+        public required string Name { get; set; }
+        public required string Email { get; set; }
         public List<Prescription> PrescriptionList { get; set; } = new List<Prescription>();
     }
 }

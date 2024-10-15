@@ -84,7 +84,7 @@ namespace Process.Operations
                 return BadRequest("User data is required.");
             }
 
-            var response = await _usersProvider.UpdateUser(email, new Process.DTOs.Entities.User { Name = user.Name, Email = user.Email });
+            var response = await _usersProvider.UpdateUser(email, user);
             if (response.Success)
             {
                 return Ok(response.Data);

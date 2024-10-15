@@ -12,7 +12,6 @@ namespace Process.Providers
     public class UsersProvider: IUsersProvider
     {
         private readonly IUserRepository _repository;
-        private readonly IMedicineRepository _medicineRepository;
         private readonly IMapper _mapper;
         public UsersProvider(IMapper mapper, IUserRepository repository)
         {
@@ -28,6 +27,7 @@ namespace Process.Providers
                 {
                     Email = user.Email,
                     Name = user.Name,
+                    PrescriptionList = new List<PrescriptionModel>()
                 };
                 await _repository.AddUserAsync(newUserModel);
                 return StatusResponseDTO.Ok(null);
@@ -84,7 +84,7 @@ namespace Process.Providers
             }
         }
 
-        public async Task<StatusResponseDTO> UpdateUser(string Email, User user)
+        public async Task<StatusResponseDTO> UpdateUser(string Email, UserInputDto user)
         {
             try
             {
@@ -94,7 +94,8 @@ namespace Process.Providers
 
                 existingUser.Name = user.Name;
                 await _repository.UpdateUserAsync(existingUser);
-                return StatusResponseDTO.Ok(existingUser);
+                var userEntity = _mapper.Map<User>(existingUser);
+                return StatusResponseDTO.Ok(userEntity);
             }
             catch (Exception e)
             {

@@ -42,7 +42,7 @@ namespace Database.Repositories
 
         public async Task DeleteMedicineByNameAsync(string Name)
         {
-            var medicine = new MedicineModel { Name = Name };
+            var medicine = await GetMedicineByNameAsync(Name);
             _context.Medicines.Remove(medicine);
             await _context.SaveChangesAsync();
         }

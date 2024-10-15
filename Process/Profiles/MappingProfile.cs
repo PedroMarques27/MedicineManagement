@@ -2,9 +2,11 @@
 using Database.Models;
 using Microsoft.OpenApi.Extensions;
 using Process.DTOs.Entities;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Process.Profiles
 {
+    [ExcludeFromCodeCoverage]
     public class MappingProfile: Profile
     {
         public MappingProfile() 

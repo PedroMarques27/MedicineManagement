@@ -39,9 +39,10 @@ namespace Database.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateUserAsync(UserModel User)
+        public async Task UpdateUserAsync(UserModel updatedUser)
         {
-            _context.Users.Update(User);
+            
+            _context.Users.Update(updatedUser);
             await _context.SaveChangesAsync();
         }
 
