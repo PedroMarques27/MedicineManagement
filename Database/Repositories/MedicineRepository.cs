@@ -25,7 +25,7 @@ namespace Database.Repositories
      
         public async Task<MedicineModel?> GetMedicineByNameAsync(string name)
         {
-            return await _context.Medicines.FirstOrDefaultAsync(c => string.Equals(c.Name, name, StringComparison.OrdinalIgnoreCase));
+            return await _context.Medicines.FirstOrDefaultAsync(c => string.Equals(c.Name, name));
         }
 
         public async Task AddMedicineAsync(MedicineModel medicine)
@@ -42,7 +42,7 @@ namespace Database.Repositories
 
         public async Task DeleteMedicineByNameAsync(string Name)
         {
-            var medicine = new MedicineModel { Name = Name };
+            var medicine = await GetMedicineByNameAsync(Name);
             _context.Medicines.Remove(medicine);
             await _context.SaveChangesAsync();
         }

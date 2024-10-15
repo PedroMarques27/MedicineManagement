@@ -30,7 +30,7 @@ namespace Database.Repositories
             return await _context.Users
                 .Include(u=> u.PrescriptionList)
                 .ThenInclude(p => p.MedicineList)
-                .FirstOrDefaultAsync(c => string.Equals(c.Email, Email, StringComparison.OrdinalIgnoreCase));
+                .FirstOrDefaultAsync(c => string.Equals(c.Email, Email));
         }
 
         public async Task AddUserAsync(UserModel User)
@@ -39,9 +39,10 @@ namespace Database.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateUserAsync(UserModel User)
+        public async Task UpdateUserAsync(UserModel updatedUser)
         {
-            _context.Users.Update(User);
+            
+            _context.Users.Update(updatedUser);
             await _context.SaveChangesAsync();
         }
 

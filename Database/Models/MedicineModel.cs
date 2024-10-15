@@ -10,14 +10,12 @@ namespace Database.Models
     public class MedicineModel
     {
         [Key]
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Value must be a positive number.")]
-        public int Quantity { get; set; }
-        public DateTime CreationDate { get; set; }
+        public required int Quantity { get; set; }
+        public required DateTime CreationDate { get; set; }
 
 
-        public Guid? PrescriptionId { get; set; }
-        public PrescriptionModel Prescription { get; set; }
     }
 }
