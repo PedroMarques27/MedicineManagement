@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Tests.Process.Entities;
 
 namespace Tests.Repositories.Models
 {
@@ -16,7 +17,7 @@ namespace Tests.Repositories.Models
                 Id = Guid.Parse("28567025-a065-4c05-80d3-f0d09bd0b084"),
                 CreationDate = DateTime.Now,
                 UserEmail = "default@email",
-                MedicineList = new List<MedicineModel> { MockMedicineModel.Mock_Default() }
+                MedicineList = new List<PrescriptionMedicineModel> { MockPrescriptionMedicineModel.Mock_Default() }
             };
         }
         public static PrescriptionModel Mock()
@@ -26,7 +27,7 @@ namespace Tests.Repositories.Models
                 Id = Guid.NewGuid(),
                 CreationDate = DateTime.Now,
                 UserEmail = "useremail@email",
-                MedicineList = new List<MedicineModel> { MockMedicineModel.Mock() }
+                MedicineList = new List<PrescriptionMedicineModel> { MockPrescriptionMedicineModel.Mock() }
             };
         }
     }

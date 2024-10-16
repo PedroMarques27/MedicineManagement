@@ -25,9 +25,18 @@ namespace Database
                 .HasForeignKey(p => p.UserEmail)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<PrescriptionModel>()
-                .HasMany(p => p.MedicineList);
+            modelBuilder.Entity<PrescriptionMedicineModel>()
+                .HasKey(um => new { um.PrescriptionId, um.MedicineName});
 
+            modelBuilder.Entity<PrescriptionMedicineModel>()
+                .HasOne(um => um.PrescriptionModel)
+                .WithMany(u => u.MedicineList)
+                .HasForeignKey(um => um.PrescriptionId);
+
+            modelBuilder.Entity<PrescriptionMedicineModel>()
+                .HasOne(um => um.Medicine)
+                .WithMany(m => m.PrescriptionMedicines)
+                .HasForeignKey(um => um.MedicineName);
 
 
         }

@@ -34,12 +34,17 @@ namespace Process.Providers
                     Id = Guid.NewGuid(),
                     CreationDate = DateTime.Now,
                     UserEmail = Email,
-                    MedicineList = new List<MedicineModel>()
+                    MedicineList = new List<PrescriptionMedicineModel>()
                 };
                 foreach(var medicine in medicines)
                 {
                     var medicineModel = await _medicineRepository.GetMedicineByNameAsync(medicine);
-                    if (medicineModel != null) prescription.MedicineList.Add(medicineModel);
+                    if (medicineModel != null) prescription.MedicineList.Add(
+                        new PrescriptionMedicineModel
+                        {
+                            MedicineName = medicineModel.Name,
+                            PrescriptionId = prescription.Id
+                        });
                 }
                 await _prescriptionRepository.AddPrescriptionAsync(prescription);
                 return StatusResponseDTO.Ok(null);
@@ -120,13 +125,27 @@ namespace Process.Providers
             {
                 var prescription = _prescriptionRepository.GetPrescriptionById(Id);
                 if (prescription == null) return StatusResponseDTO.NotFoundError();
-                prescription.MedicineList.Clear();
+
+                var updatedPrescription = new PrescriptionModel
+                {
+                    Id = Id,
+                    CreationDate = prescription.CreationDate,
+                    UserEmail = prescription.UserEmail,
+                    MedicineList = new List<PrescriptionMedicineModel>(),
+                };
                 foreach (var medicine in medicines)
                 {
-                    var medicineModel = await _medicineRepository.GetMedicineByNameAsync(medicine);
-                    if (medicineModel != null) prescription.MedicineList.Add(medicineModel);
+                    var medicineModel = await _medicineRepository.Exists(medicine);
+                    if (medicineModel) prescription.MedicineList.Add(
+                        new PrescriptionMedicineModel
+                        {
+                            MedicineName = medicine,
+                            PrescriptionId = prescription.Id
+                        });
                 }
-                await _prescriptionRepository.UpdatePrescriptionAsync(prescription);
+                await _prescriptionRepository.DeletePrescriptionByIdAsync(prescription.Id);
+                await _prescriptionRepository.AddPrescriptionAsync(prescription);
+
                 return StatusResponseDTO.Ok(null);
 
             }

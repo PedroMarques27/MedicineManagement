@@ -62,7 +62,7 @@ namespace Process.Operations
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePrescription(Guid id, [FromBody] ICollection<string> medicines)
         {
-            if (medicines == null || medicines.Count == 0)
+            if (medicines == null)
             {
                 return BadRequest("List of medicines is required.");
             }

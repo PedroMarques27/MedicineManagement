@@ -20,8 +20,8 @@ namespace Database.Repositories
         public ICollection<PrescriptionModel> GetAllPrescriptions()
         {
             return _context.Prescriptions
-                .Include(u => u.MedicineList)
-                .ToList();
+                .Include(p => p.MedicineList)
+                .ThenInclude(pm => pm.Medicine).ToList();
         }
 
 
@@ -29,6 +29,7 @@ namespace Database.Repositories
         {
             return _context.Prescriptions
                 .Include(u => u.MedicineList)
+                .ThenInclude(pm => pm.Medicine)
                 .FirstOrDefault(m=> m.Id == id);
         }
 
@@ -53,6 +54,11 @@ namespace Database.Repositories
             }
             _context.Prescriptions.Remove(Prescription);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> Exists(Guid id)
+        {
+            return await _context.Prescriptions.AnyAsync(p => p.Id == id);
         }
     }
 }

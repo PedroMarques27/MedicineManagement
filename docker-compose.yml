@@ -10,7 +10,10 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
-      
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MYSQL_HOST=mysql
+   
   mysql:
     container_name: mysql
     image: mysql

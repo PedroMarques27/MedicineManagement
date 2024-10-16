@@ -58,6 +58,10 @@ namespace Tests.Database.Repositories
         {
             await _prescriptionRepository.DeletePrescriptionByIdAsync(id);
         }
+        public async Task<bool> Exists(Guid id)
+        {
+            return await _prescriptionRepository.Exists(id);
+        }
 
     }
 }

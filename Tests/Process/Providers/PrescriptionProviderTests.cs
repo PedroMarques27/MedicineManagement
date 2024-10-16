@@ -276,8 +276,12 @@ namespace Tests.Process.Providers
             var id = Guid.NewGuid();
             var medicines = new List<string> { "Paracetamol", "Default" };
 
+            _mockMedicineRepository
+                .Setup(repo => repo.Exists(It.IsAny<string>()))
+                .ReturnsAsync(true);
+
             _mockPrescriptionRepository
-                .Setup(repo => repo.GetPrescriptionById(id))
+                .Setup(repo => repo.GetPrescriptionById(It.IsAny<Guid>()))
                 .Returns(MockPrescriptionModel.Mock_Default());
 
             _mockMedicineRepository

@@ -20,6 +20,6 @@ namespace Database.Models
         public UserModel? User { get; set; }
 
 
-        public ICollection<MedicineModel> MedicineList { get; set; } = new List<MedicineModel>();
+        public ICollection<PrescriptionMedicineModel> MedicineList { get; set; } = new List<PrescriptionMedicineModel>();
     }
 }

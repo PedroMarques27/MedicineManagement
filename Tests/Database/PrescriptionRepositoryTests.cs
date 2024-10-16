@@ -99,7 +99,23 @@ namespace Tests.Database
 
             Assert.Null(result);
         }
+        [Fact]
+        public async Task Exists_ShouldReturnTrueIfExist()
+        {
+            await _mockPrescriptionRepository.SeedPrescriptionsAsync();
 
+            var result = await _mockPrescriptionRepository.Exists(MockPrescriptionModel.Mock_Default().Id);
+
+            Assert.True(result);
+        }
+        [Fact]
+        public async Task Exists_ShouldReturnFalseIfNoItemExist()
+        {
+
+            var result = await _mockPrescriptionRepository.Exists(MockPrescriptionModel.Mock_Default().Id);
+
+            Assert.False(result);
+        }
 
     }
 }

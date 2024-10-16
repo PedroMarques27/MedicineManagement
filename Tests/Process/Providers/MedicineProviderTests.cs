@@ -17,14 +17,16 @@ namespace Tests.Process.Providers
     public class MedicineProviderTests
     {
         private readonly Mock<IMedicineRepository> _mockMedicineRepository;
+        private readonly Mock<IPrescriptionRepository> _mockPrescriptionRepository;
         private readonly Mock<IMapper> _mockMapper;
         private readonly MedicineProvider _provider;
 
         public MedicineProviderTests()
         {
             _mockMedicineRepository = new Mock<IMedicineRepository>();
+            _mockPrescriptionRepository = new Mock<IPrescriptionRepository>();
             _mockMapper = new Mock<IMapper>();
-            _provider = new MedicineProvider(_mockMedicineRepository.Object, _mockMapper.Object);
+            _provider = new MedicineProvider(_mockMedicineRepository.Object, _mockPrescriptionRepository.Object, _mockMapper.Object);
         }
 
         [Fact]

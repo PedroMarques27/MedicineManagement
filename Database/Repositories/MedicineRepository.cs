@@ -21,11 +21,10 @@ namespace Database.Repositories
         {
             return _context.Medicines.ToList();
         }
-
-     
         public async Task<MedicineModel?> GetMedicineByNameAsync(string name)
         {
-            return await _context.Medicines.FirstOrDefaultAsync(c => string.Equals(c.Name, name));
+            return await _context.Medicines
+                .FirstOrDefaultAsync(c => string.Equals(c.Name, name));
         }
 
         public async Task AddMedicineAsync(MedicineModel medicine)
@@ -45,6 +44,10 @@ namespace Database.Repositories
             var medicine = await GetMedicineByNameAsync(Name);
             _context.Medicines.Remove(medicine);
             await _context.SaveChangesAsync();
+        }
+        public async Task<bool> Exists(string Name)
+        {
+            return await _context.Medicines.AnyAsync(p => p.Name == Name);
         }
     }
 }

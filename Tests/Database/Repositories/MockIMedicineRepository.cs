@@ -58,5 +58,9 @@ namespace Tests.Database.Repositories
         {
             await _MedicineRepository.DeleteMedicineByNameAsync(Name);
         }
+        public async Task<bool> Exists(string Name)
+        {
+            return await _MedicineRepository.Exists(Name);
+        }
     }
 }
