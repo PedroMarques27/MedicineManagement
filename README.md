@@ -126,7 +126,7 @@ The solution is divided into three key projects, the Database Project, the Proce
   * `Success(bool)`: If the operation was successfull (i.e. if the error message is empty)
   * `Data (object?)`: Possible Data resulting from the operation
   * `Error (string?)`: Error Detail Message
-  * **API Endpoints**
+ * **API Endpoints**
     The project includes three main controllers: UserController, MedicinesController, and PrescriptionController. These controllers provide RESTful API endpoints to manage users, medicines, and prescriptions in the system.
 
     **User Controller**
