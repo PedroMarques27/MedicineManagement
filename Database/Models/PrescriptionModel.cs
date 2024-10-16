@@ -17,9 +17,9 @@ namespace Database.Models
 
         public required string UserEmail { get; set; }
         [ExcludeFromCodeCoverage]
-        public UserModel? User { get; set; }
+        public virtual UserModel? User { get; set; }
 
 
-        public ICollection<PrescriptionMedicineModel> MedicineList { get; set; } = new List<PrescriptionMedicineModel>();
+        public virtual ICollection<PrescriptionMedicineModel> MedicineList { get; set; } = new List<PrescriptionMedicineModel>();
     }
 }

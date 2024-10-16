@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Database.Models;
 using Database.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using NuGet.Protocol.Core.Types;
 using Process.DTOs;
@@ -126,13 +127,8 @@ namespace Process.Providers
                 var prescription = _prescriptionRepository.GetPrescriptionById(Id);
                 if (prescription == null) return StatusResponseDTO.NotFoundError();
 
-                var updatedPrescription = new PrescriptionModel
-                {
-                    Id = Id,
-                    CreationDate = prescription.CreationDate,
-                    UserEmail = prescription.UserEmail,
-                    MedicineList = new List<PrescriptionMedicineModel>(),
-                };
+                prescription.MedicineList.Clear();
+
                 foreach (var medicine in medicines)
                 {
                     var medicineModel = await _medicineRepository.Exists(medicine);
@@ -143,10 +139,10 @@ namespace Process.Providers
                             PrescriptionId = prescription.Id
                         });
                 }
-                await _prescriptionRepository.DeletePrescriptionByIdAsync(prescription.Id);
-                await _prescriptionRepository.AddPrescriptionAsync(prescription);
+                await _prescriptionRepository.UpdatePrescriptionAsync(prescription);
 
-                return StatusResponseDTO.Ok(null);
+
+                return StatusResponseDTO.Ok(_mapper.Map<Prescription>(prescription));
 
             }
             catch (Exception e)

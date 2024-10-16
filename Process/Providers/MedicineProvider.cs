@@ -28,7 +28,7 @@ namespace Process.Providers
                 var newMedicine = _mapper.Map<MedicineModel>(medicine);
                 newMedicine.CreationDate = DateTime.Now;
                 await _repository.AddMedicineAsync(newMedicine);
-                return StatusResponseDTO.Ok(newMedicine);
+                return StatusResponseDTO.Ok(_mapper.Map<Medicine>(newMedicine));
 
             }
             catch (Exception e)
@@ -95,7 +95,7 @@ namespace Process.Providers
                 existingMedicine.Quantity = medicine.Quantity;
 
                 await _repository.UpdateMedicineAsync(existingMedicine);
-                return StatusResponseDTO.Ok(existingMedicine);
+                return StatusResponseDTO.Ok(_mapper.Map<Medicine>(existingMedicine));
 
             }
             catch (Exception e)

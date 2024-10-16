@@ -36,10 +36,21 @@ The full project has been containerized using Docker. To Run the project:
 * Clone the repository
 * Open CMD inside the Repository
 * Run:
+
   ```
   docker-compose up --build
   ```
 * This will create a Docker container for the mySQL database and another for the project itself. The API is exposed at port 8080
+* Install dotnet EF Tools
+
+  ```
+  dotnet tool install --global dotnet-ef
+  ```
+* Inside the repository folder, run the Migrations:
+
+  ```
+  dotnet ef database update --project "Process"
+  ```
 * Refeer to the [Swagger.json](swagger.json) For More Information
 
 ## Project Structure
@@ -61,10 +72,9 @@ The solution is divided into three key projects, the Database Project, the Proce
   * **PrescriptionModel**
 
     * The `PrescriptionModel` represents a prescription made by a user, containing:
+
       * `Id `(primary key): A unique identifier for each prescription.
       * `CreationDate `: The date when the prescription was created.
-      * `MedicineList` : A collection of medicines included in this prescription. Each prescription can contain multiple medicines.
-    * A PrescriptionModel has a one-to-many relationship with MedicineModel, meaning each prescription can have multiple medicines.
     * Prescriptions are automatically deleted when the associated user is removed (DeleteBehavior.Cascade).
   * **MedicineModel**
 
@@ -72,6 +82,9 @@ The solution is divided into three key projects, the Database Project, the Proce
       * `Name `(string, required, primary key): The name of the medicine.
       * `Quantity `(int, required): The number of units existing for this medicine. It must be a positive value.
       * `CreationDate `(DateTime, required): The date when this medicine was registered in the database.
+  * **PrescriptionMedicineModel**
+
+    * A representation of the many-to-many relationship between MedicineModel and PrescriptionModel. When a Medicine is deleted, it is deleted from all the prescriptions. When a prescription is deleted, no medicine is deleted.
 * **Repositories**
 
   The project follows the Repository Pattern, encapsulating the data access logic into specific repositories for each entity (`User`, `Prescription`, and `Medicine`).
@@ -87,19 +100,23 @@ The solution is divided into three key projects, the Database Project, the Proce
   * **PrescriptionRepository** (for `PrescriptionModel`)
 
     * The `PrescriptionRepository` handles data access for prescriptions. It offers the following methods:
+
       * **GetAllPrescriptions()** : Retrieves all prescriptions from the database, including their associated medicines.
       * **GetPrescriptionById(Guid id)** : Fetches a specific prescription by its unique identifier (`Id`), including its associated medicines.
       * **AddPrescriptionAsync(PrescriptionModel prescription)** : Adds a new prescription to the database.
       * **UpdatePrescriptionAsync(PrescriptionModel prescription)** : Updates an existing prescription’s data.
       * **DeletePrescriptionByIdAsync(Guid id)** : Deletes a prescription based on its `Id`.
+      * **Exists(string name)** : True if a prescription exists in the database, else false.
   * **MedicineRepository** (for `MedicineModel`)
 
     * The `MedicineRepository` manages data access for medicines. It provides the following methods:
+
       * **GetAllMedicines()** : Retrieves all medicines from the database.
       * **GetMedicineByNameAsync(string name)** : Fetches a specific medicine by its name.
       * **AddMedicineAsync(MedicineModel medicine)** : Adds a new medicine to the database.
       * **UpdateMedicineAsync(MedicineModel medicine)** : Updates an existing medicine’s details (Quantity).
       * **DeleteMedicineByNameAsync(string name)** : Deletes a medicine based on its name.
+      * **Exists(string name)** : True if a medicine exists in the database, else false.
 
 ### 2. **Process Project**
 
@@ -172,7 +189,7 @@ The solution is divided into three key projects, the Database Project, the Proce
       * **GET** `/api/prescriptions/{id}`
         **Description**: Retrieves a specific prescription by its ID.
         **Response**: 200 OK with the prescription data, or 404 Not Found if the prescription is not found.
-      * **DELETE `/api/prescriptions/{id}`**
+      * **DELETE** `b`
         **Description**: Deletes a prescription by its ID.
         **Response**: 204 No Content if the prescription is successfully deleted, or 404 Not Found if the prescription does not exist.
       * **PUT** `/api/prescriptions/{id}`
@@ -188,7 +205,7 @@ For more information, refeer the [API Documentation (swagger.json)](swagger.json
 * **Tools** :
 * `xUnit`: For unit testing.
 * `Moq`: For mocking dependencies (e.g., repositories) to isolate test cases.
-* **Tests** : 95 tests where implemented to ensure the maximum code coverage (94.7%). The tests are split into two folders: Process and Database, regarding the classes being tested. Microsoft.EntityFrameworkCore.InMemory package was used to correctly mock interactions between the system and the database.
+* **Tests** : 97 tests where implemented to ensure the maximum code coverage (94.7%). The tests are split into two folders: Process and Database, regarding the classes being tested. `Microsoft.EntityFrameworkCore.InMemory` package was used to correctly mock interactions between the system and the database.
 
 ## Technologies Used
 
