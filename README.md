@@ -23,9 +23,6 @@ The Medicine Management Platform provides functionality to:
     * [API Endpoints](#api-endpoints)
   * [3. Tests Project](#3-tests-project)
 * [Technologies Used](#technologies-used)
-* [How to Run the Project](#how-to-run-the-project)
-* [Running Unit Tests](#running-unit-tests)
-* [Future Improvements](#future-improvements)
 
 ---
 
