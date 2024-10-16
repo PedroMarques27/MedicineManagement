@@ -125,6 +125,7 @@ namespace Process.Providers
             {
                 var prescription = _prescriptionRepository.GetPrescriptionById(Id);
                 if (prescription == null) return StatusResponseDTO.NotFoundError();
+
                 var updatedPrescription = new PrescriptionModel
                 {
                     Id = Id,
@@ -144,6 +145,7 @@ namespace Process.Providers
                 }
                 await _prescriptionRepository.DeletePrescriptionByIdAsync(prescription.Id);
                 await _prescriptionRepository.AddPrescriptionAsync(prescription);
+
                 return StatusResponseDTO.Ok(null);
 
             }
