@@ -14,9 +14,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+string mysqlHost = Environment.GetEnvironmentVariable("MYSQL_HOST") ?? "localhost";
+
+
 builder.Services.AddDbContext<DatabaseContext>(options =>
     options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 30))
+        builder.Configuration.GetConnectionString("DefaultConnection").Replace("{MYSQL_HOST}", mysqlHost), new MySqlServerVersion(new Version(8, 0, 30))
         )
     );
 
@@ -24,7 +27,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 builder.Services.AddScoped<IPrescriptionRepository, PrescriptionRepository>();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile)); // Adjust if necessary
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 builder.Services.AddScoped<IUsersProvider, UsersProvider>();
 builder.Services.AddScoped<IMedicineProvider, MedicineProvider>();
