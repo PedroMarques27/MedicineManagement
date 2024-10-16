@@ -16,11 +16,16 @@ namespace Process.Profiles
                  .ReverseMap();
 
             CreateMap<Prescription, PrescriptionModel>()
-                .ForMember(dest => dest.MedicineList, opt => opt.MapFrom(src=> src.MedicineList))
+                .ForMember(dest => dest.MedicineList, opt => opt.MapFrom(src=> src.MedicineList));
+
+            CreateMap<Medicine, MedicineModel>()
+                .ForMember(dest => dest.PrescriptionMedicines, opt => opt.Ignore())
                 .ReverseMap();
 
-            CreateMap<MedicineModel, Medicine>()
-                .ReverseMap();
+
+            CreateMap<PrescriptionModel, Prescription>()
+                .ForMember(dest => dest.MedicineList,
+                           opt => opt.MapFrom(src => src.MedicineList.Select(pm => pm.MedicineName)));
         }
     }
 }

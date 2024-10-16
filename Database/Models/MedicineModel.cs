@@ -17,5 +17,6 @@ namespace Database.Models
         public required DateTime CreationDate { get; set; }
 
 
+        public virtual ICollection<PrescriptionMedicineModel> PrescriptionMedicines { get; set; } = new List<PrescriptionMedicineModel>();
     }
 }

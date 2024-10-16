@@ -14,5 +14,6 @@ namespace Database.Repositories
         Task AddPrescriptionAsync(PrescriptionModel prescription);
         Task UpdatePrescriptionAsync(PrescriptionModel prescription);
         Task DeletePrescriptionByIdAsync(Guid id);
+        Task<bool> Exists(Guid id);
     }
 }

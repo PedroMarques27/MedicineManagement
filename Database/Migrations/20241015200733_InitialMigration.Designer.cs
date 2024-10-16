@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20241014162518_UpdateRelationships")]
-    partial class UpdateRelationships
+    [Migration("20241015200733_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,30 +27,33 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Models.MedicineModel", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid?>("PrescriptionId")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("PrescriptionId");
+                    b.HasKey("Name");
 
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("Database.Models.PrescriptionMedicineModel", b =>
+                {
+                    b.Property<Guid>("PrescriptionId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("MedicineName")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("PrescriptionId", "MedicineName");
+
+                    b.HasIndex("MedicineName");
+
+                    b.ToTable("PrescriptionMedicineModel");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>
@@ -87,14 +90,23 @@ namespace Database.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Database.Models.MedicineModel", b =>
+            modelBuilder.Entity("Database.Models.PrescriptionMedicineModel", b =>
                 {
-                    b.HasOne("Database.Models.PrescriptionModel", "Prescription")
+                    b.HasOne("Database.Models.MedicineModel", "Medicine")
+                        .WithMany("PrescriptionMedicines")
+                        .HasForeignKey("MedicineName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Models.PrescriptionModel", "PrescriptionModel")
                         .WithMany("MedicineList")
                         .HasForeignKey("PrescriptionId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Prescription");
+                    b.Navigation("Medicine");
+
+                    b.Navigation("PrescriptionModel");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>
@@ -106,6 +118,11 @@ namespace Database.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Database.Models.MedicineModel", b =>
+                {
+                    b.Navigation("PrescriptionMedicines");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>

@@ -2,6 +2,7 @@
 using Database.Models;
 using Database.Repositories;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using NuGet.Packaging;
 using NuGet.Protocol.Core.Types;
 using Process.DTOs;
 using Process.DTOs.Entities;
@@ -12,11 +13,13 @@ namespace Process.Providers
     {
         private readonly IMedicineRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IPrescriptionRepository _prescriptionRepository;
 
-        public MedicineProvider(IMedicineRepository repository, IMapper mapper) 
+        public MedicineProvider(IMedicineRepository repository, IPrescriptionRepository prescriptionRepository, IMapper mapper) 
         {
             this._mapper = mapper;
             _repository = repository;
+            _prescriptionRepository = prescriptionRepository;
         }
         public async Task<StatusResponseDTO> AddMedicine(Medicine medicine)
         {
@@ -85,13 +88,15 @@ namespace Process.Providers
         {
             try
             {
-                var existingMedicine = await _repository.GetMedicineByNameAsync(name);
-                if (existingMedicine == null)
-                    return StatusResponseDTO.NotFoundError();
+                
 
+                var existingMedicine = await _repository.GetMedicineByNameAsync(name);
+                if (existingMedicine == null) return StatusResponseDTO.NotFoundError();
                 existingMedicine.Quantity = medicine.Quantity;
+
                 await _repository.UpdateMedicineAsync(existingMedicine);
                 return StatusResponseDTO.Ok(existingMedicine);
+
             }
             catch (Exception e)
             {

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Database.Migrations
 {
-    [ExcludeFromCodeCoverage]
     [DbContext(typeof(DatabaseContext))]
+    [ExcludeFromCodeCoverage]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -32,17 +32,27 @@ namespace Database.Migrations
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid?>("PrescriptionModelId")
-                        .HasColumnType("char(36)");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Name");
 
-                    b.HasIndex("PrescriptionModelId");
-
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("Database.Models.PrescriptionMedicineModel", b =>
+                {
+                    b.Property<Guid>("PrescriptionId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("MedicineName")
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("PrescriptionId", "MedicineName");
+
+                    b.HasIndex("MedicineName");
+
+                    b.ToTable("PrescriptionMedicineModel");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>
@@ -79,11 +89,23 @@ namespace Database.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Database.Models.MedicineModel", b =>
+            modelBuilder.Entity("Database.Models.PrescriptionMedicineModel", b =>
                 {
-                    b.HasOne("Database.Models.PrescriptionModel", null)
+                    b.HasOne("Database.Models.MedicineModel", "Medicine")
+                        .WithMany("PrescriptionMedicines")
+                        .HasForeignKey("MedicineName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Models.PrescriptionModel", "PrescriptionModel")
                         .WithMany("MedicineList")
-                        .HasForeignKey("PrescriptionModelId");
+                        .HasForeignKey("PrescriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Medicine");
+
+                    b.Navigation("PrescriptionModel");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>
@@ -95,6 +117,11 @@ namespace Database.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Database.Models.MedicineModel", b =>
+                {
+                    b.Navigation("PrescriptionMedicines");
                 });
 
             modelBuilder.Entity("Database.Models.PrescriptionModel", b =>
